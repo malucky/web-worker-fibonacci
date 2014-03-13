@@ -1,0 +1,62 @@
+<html>
+<head>
+<style>
+
+  body {
+    height: 100%;
+    text-align: center;
+    font-size: 1.2em;
+  }
+
+  .fib-app {
+    margin: 3%;
+    padding: 2%;
+    border: 1px black dotted;
+    border-radius: 10px;
+  }
+
+  .description {
+    margin-top: 30px;
+    text-align: left;
+  }
+
+  aside {
+    margin-top: 30px;
+    color: red;
+    text-align: right;
+  }
+</style>
+</head>
+<body>
+  <div class="fib-app">
+    <header><h1>Finding Fibonacci with Recursive Web Workers</h1></header>
+    <form>
+      <label>Enter nth fibonacci to calculate:</label><input name="num" type="number" value="5">
+      <input type="submit" value="TEST WORKER!">
+    </form>
+    <div>ANSWER: <span class="answer"></span></div>
+    <aside>***Use Firefox, Chrome and other browsers do not currently supported nested web workers.</aside>
+    <aside>***There is a limit to the number of nested web workers. n > 8 does not run successfully.</aside>
+  </div>
+
+  <div>
+    <h1>How this works:</h1>
+    <div class="description">
+      <h2>Web Worker Overview</h2>
+      <p>Web worker is a cool feature that allows javascript to be run in a separate thread. Browsers and Javascript are generally considered to be single-threaded (see <a href="http://stackoverflow.com/questions/2734025/is-javascript-guaranteed-to-be-single-threaded">here</a> for more detailed discussion on the topic), but our computers are multi-core can handle multi-threaded execution. Web workers take advantage of this by running Javascript in a separate OS-level thread.</p>
+      <p>But wait, doesn't Javascript's asynchronous nature solve the single-thread limitation? Yes, it certainly addresses the problem, but asynchronous is not the same as being multi-threaded. Javascript is executed based on something called the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/EventLoop">event loop</a>, which can still be somewhat "blocking". More intensive operations can be deligated to web workers to stop the browser from becoming non-responsive. Other practical uses of web workers can be found <a href="http://stackoverflow.com/questions/2773682/what-are-the-use-cases-for-web-workers">here</a>.</p>
+      <h2>Solving Fibonacci with Web Workers</h2>
+      <p>Fibonacci can be solved recursively, as seen <a href="http://en.literateprograms.org/Fibonacci_numbers_(JavaScript)">here</a>. This "recursive" characteristic can be replicated by using web workers. Every recursive call is represented by spawning and executing a new web worker. Yes, this is super inefficient and superfluous. This is simply an exercise. A more practical way of utilizing web worker is to simply create one worker that executes the recursive fibonacci algorithm by itself.</p>
+      <p>Check out the source code to learn more about web workers.</p>
+      <h2>Notes</h2>
+      <p>
+        ***Run this on Fire Fox. Chrome and some other browsers does not currently support web worker spawning inside web worker.</p>
+      <p>
+        ***Also, there is a limit to the number of workers. Fibonacci above with n > 8 does not run successfully.
+      </p>
+      <p></p>
+    </div>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
